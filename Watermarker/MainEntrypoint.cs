@@ -69,7 +69,7 @@ public class MainEntrypoint : IMainEntrypoint
         }
 
         ApplyMetadataBanner(image);
-        
+
         await image.SaveAsJpegAsync(outputFilename, new JpegEncoder {
             Quality = 85,
             ColorType = JpegEncodingColor.Rgb,
@@ -86,7 +86,7 @@ public class MainEntrypoint : IMainEntrypoint
     {
         if (!SystemFonts.TryGet("Arial", out var fontFamily))
             throw new InvalidOperationException("Unable to locate font");
-        
+
         var bannerHeight = image.Height * 5 / 100;
         var bannerMargin = bannerHeight / 6;
         var bannerTop = image.Height - bannerHeight;
@@ -102,11 +102,11 @@ public class MainEntrypoint : IMainEntrypoint
         string leftLine2 = GetCameraAndLensAndExposure(image);
 
         string rightLine1 = GetLocation(image);
-        string rightLine2 = GetDateTime(image); 
+        string rightLine2 = GetDateTime(image);
 
         image.Mutate(img =>
         {
-            img.GaussianBlur(50f, bannerArea);
+            img.GaussianBlur(image.Height / 140f, bannerArea);
             img.Brightness(0.5f, bannerArea);
 
             img.DrawLine(Color.White, 1f, new PointF(0, bannerTop), new PointF(image.Width, bannerTop));
@@ -200,7 +200,7 @@ public class MainEntrypoint : IMainEntrypoint
     {
         string? camera = Replace(CoalesceMakeModel(image, ExifTag.Make, ExifTag.Model));
         string? lens = Replace(CoalesceMakeModel(image, ExifTag.LensMake, ExifTag.LensModel));
-        
+
         string leftLine2 = camera != null && lens != null
             ? camera + " + " + lens
             : camera ?? "";
@@ -245,7 +245,7 @@ public class MainEntrypoint : IMainEntrypoint
     {
         if (input is null)
             return null;
-        
+
         return _configuration["Replacements:" + input] ?? input;
     }
 }
