@@ -21,3 +21,5 @@ Hazel also monitors for .JPG files and will sort these into sub-folders for year
 ### DISCLAIMER
 There is very little in terms of customization, as the tool has been written for me and my needs. If anyone would like to use this tool, I would appreciate having a discussion about necessary changes to accomodate this. I've already logged one issue with some requests,
 I still need to decide if I want to go down the route of making this a general tool for everyone. You are of course free to fork and change the code yourself, though there may be an issue with some nuget packages I am using, but let me know, we'll figure something out.
+
+  [1]: https://www.noodlesoft.com/
